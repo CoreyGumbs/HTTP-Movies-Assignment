@@ -5,7 +5,6 @@ class MovieUpdate extends Component {
     constructor(props){
         super(props);
         this.state = {
-            movie : '',
             title: '',
             director: '',
             metascore: '',
@@ -14,11 +13,18 @@ class MovieUpdate extends Component {
     }
 
     componentDidMount(){
+       this.getData();
+    }
+
+    async getData(){
         axios.get(`http://localhost:5000/api/movies/${this.props.match.params.id}`)
         .then(res => {
             this.setState({
-                ...this.state,
-                movie: res.data
+                title: res.data.title,
+                director: res.data.director,
+                metascore: res.data.metascore,
+                stars: res.data.stars
+
             })
             console.log(res)
         })
@@ -35,10 +41,12 @@ class MovieUpdate extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-
         const {title, director, metascore, stars} = this.state;
-
-        const starsArray = stars.split(',')
+        
+        let starsArray;
+        if(!Array.isArray(stars)){
+            starsArray = stars.split(',')
+        };
         
         const body = {
             title: title,
@@ -51,17 +59,18 @@ class MovieUpdate extends Component {
     }
 
     updateMovie = movie => {
+
         axios.put(`http://localhost:5000/api/movies/${this.props.match.params.id}`, movie)
         .then(res =>{
             console.log(res);
         })
         .catch(err => console.log(err));
 
-        this.props.history.push('/movies');
+        this.props.history.push(`/movies/${this.props.match.params.id}`);
     }
 
     render(){
-        console.log(this.props);
+        console.log(this.state.title);
         const {title, director, metascore, stars} =  this.state;
 
         return(
@@ -71,25 +80,25 @@ class MovieUpdate extends Component {
                         <label htmlFor="" className="movie-update-label">
                             Title:
                         </label>
-                        <input type="text" className="movie-update-input" name="title" value={ title} onChange={this.handleChanges}/>
+                        <input type="text" className="movie-update-input" name="title" value={ title} onChange={this.handleChanges} required/>
                     </div>
                     <div className="movie-update-input-container">
                         <label htmlFor="" className="movie-update-label" >
                             Director:
                         </label>
-                        <input type="text" className="movie-update-input"  name="director" value={director} onChange={this.handleChanges}/>
+                        <input type="text" className="movie-update-input"  name="director" value={director} onChange={this.handleChanges} required/>
                     </div>
                     <div className="movie-update-input-container">
                         <label htmlFor="" className="movie-update-label">
                             Metascore: 
                         </label>
-                            <input type="number" className="movie-update-input" name="metascore" value={ metascore} onChange={this.handleChanges}/>
+                            <input type="number" className="movie-update-input" name="metascore" value={ metascore} onChange={this.handleChanges} required/>
                         </div>
                     <div className="movie-update-input-container">
                         <label htmlFor="" className="movie-update-label">
                             Actors: 
                         </label>
-                        <input type="text" className="movie-update-input" name="stars" value={stars} onChange={this.handleChanges}/>
+                        <input type="text" className="movie-update-input" name="stars" value={stars} onChange={this.handleChanges} required/>
                     </div>
                     <div className="movie-update-btn">
                         <button type="submit">
