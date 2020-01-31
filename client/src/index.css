@@ -77,8 +77,20 @@ body {
 }
 
 .update-button{
+  width: 100px;
   position: absolute;
   top: 75px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 10px;
+  font-size: 1rem;
+  background-color: lightseagreen;
+}
+
+.delete-button{
+  width: 100px;
+  position: absolute;
+  top: 125px;
   right: 25px;
   border: 1px solid grey;
   padding: 5px 10px;

@@ -61,6 +61,7 @@ class MovieUpdate extends Component {
     }
 
     render(){
+        console.log(this.props);
         const {title, director, metascore, stars} =  this.state;
 
         return(
@@ -70,25 +71,25 @@ class MovieUpdate extends Component {
                         <label htmlFor="" className="movie-update-label">
                             Title:
                         </label>
-                        <input type="text" className="movie-update-input" name="title" value={this.state.movie.title || title} onChange={this.handleChanges}/>
+                        <input type="text" className="movie-update-input" name="title" value={ title} onChange={this.handleChanges}/>
                     </div>
                     <div className="movie-update-input-container">
                         <label htmlFor="" className="movie-update-label" >
                             Director:
                         </label>
-                        <input type="text" className="movie-update-input"  name="director" value={this.state.movie.director || director} onChange={this.handleChanges}/>
+                        <input type="text" className="movie-update-input"  name="director" value={director} onChange={this.handleChanges}/>
                     </div>
                     <div className="movie-update-input-container">
                         <label htmlFor="" className="movie-update-label">
                             Metascore: 
                         </label>
-                            <input type="number" className="movie-update-input" name="metascore" value={this.state.movie.metascore || metascore} onChange={this.handleChanges}/>
+                            <input type="number" className="movie-update-input" name="metascore" value={ metascore} onChange={this.handleChanges}/>
                         </div>
                     <div className="movie-update-input-container">
                         <label htmlFor="" className="movie-update-label">
                             Actors: 
                         </label>
-                        <input type="text" className="movie-update-input" name="stars" value={this.state.movie.stars || stars} onChange={this.handleChanges}/>
+                        <input type="text" className="movie-update-input" name="stars" value={stars} onChange={this.handleChanges}/>
                     </div>
                     <div className="movie-update-btn">
                         <button type="submit">
